@@ -70,7 +70,8 @@ function Homepage(props) {
   const [totalPages, setTotalPages] = useState(8);
   const [movieBranch, setMovieBranch] = useState([]);
   const dispatch = useDispatch();
-  const { loading, movieList, banners } = useSelector((state) => state.home);
+  const loading = useSelector((state) => state.home.loading);
+  const movieList = useSelector((state) => state.home.movieList);
 
   const toggleVisibility = () => {
     if (window.pageYOffset > 300) {
@@ -94,22 +95,13 @@ function Homepage(props) {
   }, []);
 
   useEffect(() => {
-    (async () => {
-      try {
-        //get banner data
-        const getBannerdata = await dispatch(getBanners());
-        const bannersResult = unwrapResult(getBannerdata);
-        // setBanners(bannersResult);
-
-        //get data Movie
-        const getMovieData = await dispatch(getMovies(pagination));
-        const moviesResult = unwrapResult(getMovieData);
-        // setMovieList(moviesResult.items);
-        setTotalPages(moviesResult.totalPages);
-      } catch (error) {
-        console.log('Failed to fetch data: ', error);
-      }
-    })();
+    const get = async () => {
+      await unwrapResult(dispatch(getBanners()));
+      const getMovieList = await dispatch(getMovies(pagination));
+      setTotalPages(getMovieList.payload.totalPages);
+    };
+    get();
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -127,13 +119,13 @@ function Homepage(props) {
         const firstMovieList = branchsResult[0].lstCumRap[0].danhSachPhim;
         setMovieBranch(firstMovieList);
       } catch (error) {
-        console.log('Failed to fetch data: ', error);
+        alert('Failed to fetch data: ', error);
       }
     })();
   }, [theaterItem, dispatch]);
 
   const handlePageChange = async (e, page) => {
-    let getMovieData = await dispatch(
+    await dispatch(
       getMovies({
         ...pagination,
         currentPage: page,
@@ -164,7 +156,7 @@ function Homepage(props) {
       )}
       <Container>
         <Paper elevation={1}>
-          <Banner data={banners} />
+          <Banner />
         </Paper>
         <Grid container>
           <Box p={1} className={classes.listMovie}>

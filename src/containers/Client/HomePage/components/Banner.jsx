@@ -2,6 +2,9 @@ import { Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
+import banner1 from '../../../../assets/images/bn1.jpg';
+import banner2 from '../../../../assets/images/bn2.jpg';
+import banner3 from '../../../../assets/images/bn3.jpg';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,10 +14,14 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: '100%',
     height: '70vh',
+    objectFit: 'cover',
   },
 }));
 
-function Banner({ data }) {
+const banners = [banner1, banner2, banner3];
+
+function Banner() {
+  // const banners = useSelector((state) => state.home.banners);
   const classes = useStyles();
   return (
     <Carousel
@@ -34,9 +41,9 @@ function Banner({ data }) {
       }}
       className={classes.root}
     >
-      {data.map((item) => (
-        <Paper key={item.maBanner}>
-          <img className={classes.img} src={item.hinhAnh} alt="Banner" />
+      {banners.map((item, index) => (
+        <Paper key={index}>
+          <img className={classes.img} src={item} alt={`banner ${index}`} />
         </Paper>
       ))}
     </Carousel>
