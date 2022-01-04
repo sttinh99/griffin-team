@@ -44,7 +44,7 @@ function Register({ handleChange }) {
   const validationSchema = Yup.object().shape({
     user: Yup.string().min(5, "It's too short").required('Required'),
     password: Yup.string()
-      .min(8, 'Password minimum length should be 8')
+      .min(5, 'Password minimum length should be 5')
       .max(30, 'Password maximum length should be 30')
       .required('Required'),
     confirmPassword: Yup.string()
@@ -93,8 +93,8 @@ function Register({ handleChange }) {
             marginTop: '2vh',
           },
         });
-        dispatch(checkPath(true))
-        handleChange('event', 0)
+        dispatch(checkPath(true));
+        handleChange('event', 0);
       }
     } catch (error) {
       message.error({
@@ -208,10 +208,9 @@ function Register({ handleChange }) {
               <FormControlLabel
                 control={<Field as={Checkbox} name="termsAndConditions" />}
                 label="I accept the terms and conditions."
-
               />
               <FormHelperText>
-                <ErrorMessage name="termsAndConditions" >
+                <ErrorMessage name="termsAndConditions">
                   {(msg) => <div style={{ color: 'red' }}>{msg}</div>}
                 </ErrorMessage>
               </FormHelperText>
