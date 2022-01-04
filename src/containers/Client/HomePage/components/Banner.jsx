@@ -2,9 +2,9 @@ import { Paper } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import React from 'react';
 import Carousel from 'react-material-ui-carousel';
-import banner1 from '../../../../assets/images/bn1.jpg';
-import banner2 from '../../../../assets/images/bn2.jpg';
-import banner3 from '../../../../assets/images/bn3.jpg';
+import banner1 from '../../../../assets/images/bn1.png';
+import banner2 from '../../../../assets/images/bn2.png';
+import banner3 from '../../../../assets/images/bn3.png';
 
 const useStyles = makeStyles((theme) => ({
   root: {
